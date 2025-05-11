@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { 
@@ -10,7 +9,7 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { ChevronLeft, ChevronRight, Plus, Share, Play } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { store } from "@/lib/store";
@@ -52,7 +51,6 @@ const TopicView = () => {
   const [flipped, setFlipped] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const shareForm = useForm<z.infer<typeof shareFormSchema>>({
     resolver: zodResolver(shareFormSchema),
@@ -67,43 +65,28 @@ const TopicView = () => {
       if (fetchedTopic) {
         setTopic(fetchedTopic);
       } else {
-        toast({
-          title: "Error",
-          description: "Topic not found",
-          variant: "destructive",
-        });
+        toast.error("Topic not found");
         navigate("/dashboard");
       }
     }
-  }, [topicId, navigate, toast]);
+  }, [topicId, navigate]);
 
   const handleShare = (values: z.infer<typeof shareFormSchema>) => {
     if (!topic) return;
     
     const targetUser = store.getUser(values.userId);
     if (!targetUser) {
-      toast({
-        title: "Error",
-        description: "User not found",
-        variant: "destructive",
-      });
+      toast.error("User not found");
       return;
     }
     
     const success = store.shareTopic(topic.id, values.userId);
     if (success) {
-      toast({
-        title: "Success",
-        description: `Topic shared with user ${values.userId}`,
-      });
+      toast.success(`Topic shared with user ${values.userId}`);
       setIsShareDialogOpen(false);
       shareForm.reset();
     } else {
-      toast({
-        title: "Error",
-        description: "Failed to share topic",
-        variant: "destructive",
-      });
+      toast.error("Failed to share topic");
     }
   };
 
@@ -125,10 +108,7 @@ const TopicView = () => {
 
   const startQuiz = () => {
     // In a real app, this would navigate to a quiz mode
-    toast({
-      title: "Quiz Mode",
-      description: "Quiz mode would start here in a complete implementation",
-    });
+    toast.success("Quiz mode would start here in a complete implementation");
   };
 
   const isCreator = user?.id === topic?.createdBy;

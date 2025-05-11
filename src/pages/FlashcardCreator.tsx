@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { 
@@ -12,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Image, Save, ArrowLeft, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { store } from "@/lib/store";
@@ -29,7 +28,6 @@ const FlashcardCreator = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   useEffect(() => {
     if (topicId) {
@@ -38,23 +36,15 @@ const FlashcardCreator = () => {
         setTopic(fetchedTopic);
         // Check if the user is the creator of the topic
         if (user?.id !== fetchedTopic.createdBy) {
-          toast({
-            title: "Permission Error",
-            description: "You can only add flashcards to your own topics",
-            variant: "destructive",
-          });
+          toast.error("You can only add flashcards to your own topics");
           navigate(`/topic/${topicId}`);
         }
       } else {
-        toast({
-          title: "Error",
-          description: "Topic not found",
-          variant: "destructive",
-        });
+        toast.error("Topic not found");
         navigate("/dashboard");
       }
     }
-  }, [topicId, user?.id, navigate, toast]);
+  }, [topicId, user?.id, navigate]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -78,11 +68,7 @@ const FlashcardCreator = () => {
 
   const handleSaveFlashcard = () => {
     if (!user || !topic || !question.trim() || !answer.trim()) {
-      toast({
-        title: "Error",
-        description: "Please fill in both question and answer fields",
-        variant: "destructive",
-      });
+      toast.error("Please fill in both question and answer fields");
       return;
     }
 
@@ -96,10 +82,7 @@ const FlashcardCreator = () => {
       createdBy: user.id,
     });
 
-    toast({
-      title: "Success",
-      description: "Flashcard added successfully",
-    });
+    toast.success("Flashcard added successfully");
 
     // Reset form
     setQuestion("");

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -31,7 +30,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Folder, Plus, File } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { store } from "@/lib/store";
@@ -50,7 +49,6 @@ const UserProfile = () => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,10 +86,7 @@ const UserProfile = () => {
     setIsDialogOpen(false);
     form.reset();
     
-    toast({
-      title: "Success",
-      description: "Folder created successfully",
-    });
+    toast.success("Folder created successfully");
   };
 
   if (!user) {

@@ -17,7 +17,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Copy, Plus, Search } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { store } from "@/lib/store";
@@ -29,7 +29,6 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [newUserId, setNewUserId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const { toast } = useToast();
 
   useEffect(() => {
     loadUsers();
@@ -42,22 +41,14 @@ const AdminDashboard = () => {
 
   const handleCreateUser = () => {
     if (!newUserId.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a user ID",
-        variant: "destructive",
-      });
+      toast.error("Please enter a user ID");
       return;
     }
 
     // Check if user ID already exists
     const existingUser = store.getUser(newUserId);
     if (existingUser) {
-      toast({
-        title: "Error",
-        description: "User ID already exists",
-        variant: "destructive",
-      });
+      toast.error("User ID already exists");
       return;
     }
 
@@ -66,18 +57,12 @@ const AdminDashboard = () => {
     loadUsers();
     setNewUserId("");
     
-    toast({
-      title: "Success",
-      description: `User ${newUserId} created successfully`,
-    });
+    toast.success(`User ${newUserId} created successfully`);
   };
 
   const handleCopyId = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast({
-      title: "Copied",
-      description: "User ID copied to clipboard",
-    });
+    toast.success("User ID copied to clipboard");
   };
 
   const filteredUsers = users.filter(user => 
