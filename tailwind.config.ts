@@ -63,32 +63,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				trailblue: {
-          DEFAULT: '#0A2463',
-          50: '#E6EBF5',
-          100: '#CCDBEC',
-          200: '#99B8DC',
-          300: '#6696CC',
-          400: '#3375BC',
-          500: '#0A2463',
-          600: '#081D4F',
-          700: '#06163A',
-          800: '#040E26',
-          900: '#020711'
-        },
-        trailyellow: {
-          DEFAULT: '#FFD166',
-          50: '#FFFAF0',
-          100: '#FFF5E0',
-          200: '#FFEBB3',
-          300: '#FFE085',
-          400: '#FFD166',
-          500: '#FFBE14',
-          600: '#E0A000',
-          700: '#AD7C00',
-          800: '#7A5700',
-          900: '#473300'
-        },
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

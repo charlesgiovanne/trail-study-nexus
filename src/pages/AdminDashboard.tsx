@@ -74,7 +74,7 @@ const AdminDashboard = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-trailblue-500 mb-6">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold text-primary mb-6">Admin Dashboard</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="md:col-span-2">
@@ -163,7 +163,7 @@ const AdminDashboard = () => {
                 </div>
                 
                 <Button 
-                  className="w-full bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500" 
+                  className="w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground" 
                   onClick={handleCreateUser}
                 >
                   <Plus className="h-4 w-4 mr-2" />

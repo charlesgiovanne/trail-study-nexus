@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -106,7 +107,7 @@ const UserProfile = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-trailblue-500">My Profile</h1>
+          <h1 className="text-3xl font-bold text-primary">My Profile</h1>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -140,7 +141,7 @@ const UserProfile = () => {
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
                     <Button
-                      className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500"
+                      className="bg-secondary hover:bg-secondary/80 text-secondary-foreground"
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       New Folder
@@ -188,7 +189,7 @@ const UserProfile = () => {
                       >
                         <CardHeader className="pb-2">
                           <div className="flex items-center space-x-2">
-                            <Folder className="h-5 w-5 text-trailblue-400" />
+                            <Folder className="h-5 w-5 text-blue-400" />
                             <CardTitle className="text-base">{folder.name}</CardTitle>
                           </div>
                         </CardHeader>
@@ -208,7 +209,7 @@ const UserProfile = () => {
                     <div className="mt-6">
                       <Button 
                         onClick={() => setIsDialogOpen(true)}
-                        className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500"
+                        className="bg-secondary hover:bg-secondary/80 text-secondary-foreground"
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Create Folder
@@ -235,7 +236,7 @@ const UserProfile = () => {
                       >
                         <CardHeader className="pb-2">
                           <div className="flex items-center space-x-2">
-                            <File className="h-5 w-5 text-trailblue-400" />
+                            <File className="h-5 w-5 text-blue-400" />
                             <CardTitle className="text-base">{topic.title}</CardTitle>
                           </div>
                         </CardHeader>
