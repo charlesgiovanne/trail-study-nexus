@@ -23,11 +23,11 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="bg-trailblue-500 text-white p-4 shadow-md">
+    <nav className="bg-primary text-primary-foreground p-4 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/dashboard" className="flex items-center">
           <h1 className="text-2xl font-bold">
-            Trail<span className="text-trailyellow">Study</span>
+            Trail<span className="text-secondary">Study</span>
           </h1>
         </Link>
 
@@ -35,7 +35,7 @@ const Navigation: React.FC = () => {
           {user?.isAdmin && (
             <Button
               variant="ghost"
-              className="text-white hover:text-trailyellow"
+              className="text-primary-foreground hover:text-secondary"
               onClick={() => navigate("/admin")}
             >
               Admin Dashboard
@@ -44,7 +44,7 @@ const Navigation: React.FC = () => {
           
           <Button
             variant="ghost"
-            className="text-white hover:text-trailyellow"
+            className="text-primary-foreground hover:text-secondary"
             onClick={() => navigate("/dashboard")}
           >
             Dashboard
@@ -52,7 +52,7 @@ const Navigation: React.FC = () => {
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative rounded-full h-8 w-8 p-0 overflow-hidden border-2 border-trailyellow">
+              <Button variant="ghost" className="relative rounded-full h-8 w-8 p-0 overflow-hidden border-2 border-secondary">
                 <User className="h-4 w-4" />
                 <span className="sr-only">Open user menu</span>
               </Button>

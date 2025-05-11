@@ -33,7 +33,7 @@ const TopicGrid: React.FC<TopicGridProps> = ({
           <div className="mt-6">
             <Button 
               onClick={onCreateClick}
-              className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500"
+              className="bg-secondary hover:bg-secondary/80 text-secondary-foreground"
             >
               <Plus className="h-4 w-4 mr-2" />
               Create Topic
