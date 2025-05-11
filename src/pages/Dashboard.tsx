@@ -93,14 +93,14 @@ const Dashboard = () => {
   );
   
   const sharedTopics = filteredTopics.filter(
-    (topic) => user?.sharedTopics.includes(topic.id)
+    (topic) => user?.sharedTopics && user.sharedTopics.includes(topic.id)
   );
   
   const publicTopics = filteredTopics.filter(
     (topic) => 
       topic.isPublic && 
       topic.createdBy !== user?.id && 
-      !user?.sharedTopics.includes(topic.id)
+      !(user?.sharedTopics && user.sharedTopics.includes(topic.id))
   );
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
