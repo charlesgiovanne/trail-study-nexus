@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,33 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				trailblue: {
+          DEFAULT: '#0A2463',
+          50: '#E6EBF5',
+          100: '#CCDBEC',
+          200: '#99B8DC',
+          300: '#6696CC',
+          400: '#3375BC',
+          500: '#0A2463',
+          600: '#081D4F',
+          700: '#06163A',
+          800: '#040E26',
+          900: '#020711'
+        },
+        trailyellow: {
+          DEFAULT: '#FFD166',
+          50: '#FFFAF0',
+          100: '#FFF5E0',
+          200: '#FFEBB3',
+          300: '#FFE085',
+          400: '#FFD166',
+          500: '#FFBE14',
+          600: '#E0A000',
+          700: '#AD7C00',
+          800: '#7A5700',
+          900: '#473300'
+        },
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +111,16 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'flip': {
+          '0%, 100%': { transform: 'rotateY(0deg)' },
+          '50%': { transform: 'rotateY(180deg)' },
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'flip': 'flip 0.5s ease-out'
 			}
 		}
 	},
