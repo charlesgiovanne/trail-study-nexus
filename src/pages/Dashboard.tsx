@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Folder, Search } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { store } from "@/lib/store";
 import { Topic } from "@/types";
 import Navigation from "@/components/Navigation";
@@ -48,14 +48,14 @@ const Dashboard = () => {
   );
   
   const sharedTopics = filteredTopics.filter(
-    (topic) => user?.sharedTopics && user.sharedTopics.includes(topic.id)
+    (topic) => user?.sharedTopics?.includes(topic.id)
   );
   
   const publicTopics = filteredTopics.filter(
     (topic) => 
       topic.isPublic && 
       topic.createdBy !== user?.id && 
-      !(user?.sharedTopics && user.sharedTopics.includes(topic.id))
+      !(user?.sharedTopics?.includes(topic.id))
   );
 
   const onSubmit = (values: { title: string; description: string; isPublic: boolean }) => {
@@ -69,10 +69,7 @@ const Dashboard = () => {
       flashcards: [],
     });
     
-    toast({
-      title: "Success!",
-      description: "Your topic has been created."
-    });
+    toast.success("Your topic has been created.");
     
     loadTopics();
     setIsOpen(false);

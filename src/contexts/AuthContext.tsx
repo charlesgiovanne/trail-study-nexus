@@ -1,10 +1,13 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 type User = {
   id: string;
   isAdmin: boolean;
+  sharedTopics: string[];
+  createdTopics: string[];
+  folders: any[];
 };
 
 interface AuthContextType {
@@ -27,7 +30,6 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     // Check if user is already logged in
@@ -48,24 +50,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // For this demo, we'll check if ID matches password as per requirements
     if (id === password) {
       const isAdmin = id === "2023305700";
-      const user = { id, isAdmin };
+      const user = { 
+        id, 
+        isAdmin,
+        sharedTopics: [],
+        createdTopics: [],
+        folders: []
+      };
       
       setUser(user);
       setIsAuthenticated(true);
       localStorage.setItem("trailstudy_user", JSON.stringify(user));
       
-      toast({
-        title: "Logged in successfully",
-        description: `Welcome, ${id}!`,
-      });
+      toast.success(`Welcome, ${id}!`);
       
       return true;
     } else {
-      toast({
-        title: "Login failed",
-        description: "ID and password must match",
-        variant: "destructive",
-      });
+      toast.error("ID and password must match");
       
       return false;
     }
@@ -75,10 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem("trailstudy_user");
-    toast({
-      title: "Logged out",
-      description: "You have been logged out successfully",
-    });
+    toast.success("You have been logged out successfully");
   };
 
   const value = {
