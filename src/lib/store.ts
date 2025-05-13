@@ -1,4 +1,3 @@
-
 import { Flashcard, Topic, Folder, User } from "@/types";
 
 // Mock data store - in a real app this would be replaced with API calls
@@ -258,6 +257,53 @@ class Store {
     
     // Delete the folder
     return this.folders.delete(id);
+  }
+
+  // Add topic to folder
+  addTopicToFolder(folderId: string, topicId: string): boolean {
+    const folder = this.folders.get(folderId);
+    if (!folder) return false;
+
+    // Check if topic exists
+    const topic = this.topics.get(topicId);
+    if (!topic) return false;
+    
+    // Check if topic already in folder
+    if (folder.topics.includes(topicId)) return true;
+    
+    // Add topic to folder
+    folder.topics.push(topicId);
+    
+    // Update folder
+    this.updateFolder(folder);
+    
+    return true;
+  }
+
+  // Remove topic from folder
+  removeTopicFromFolder(folderId: string, topicId: string): boolean {
+    const folder = this.folders.get(folderId);
+    if (!folder) return false;
+    
+    // Check if topic in folder
+    if (!folder.topics.includes(topicId)) return true;
+    
+    // Remove topic from folder
+    folder.topics = folder.topics.filter(id => id !== topicId);
+    
+    // Update folder
+    this.updateFolder(folder);
+    
+    return true;
+  }
+
+  // Get topics in folder
+  getTopicsInFolder(folderId: string): Topic[] {
+    const folder = this.folders.get(folderId);
+    if (!folder) return [];
+    
+    return folder.topics.map(topicId => this.topics.get(topicId))
+      .filter((topic): topic is Topic => topic !== undefined);
   }
 }
 
