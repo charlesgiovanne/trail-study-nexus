@@ -54,8 +54,8 @@ const TopicView = () => {
   };
 
   const startQuiz = () => {
-    // In a real app, this would navigate to a quiz mode
-    toast.success("Quiz mode would start here in a complete implementation");
+    // Navigate to the quiz mode page
+    navigate(`/quiz/${topicId}`);
   };
 
   const isCreator = user?.id === topic?.createdBy;

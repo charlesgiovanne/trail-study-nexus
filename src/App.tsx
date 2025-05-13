@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import TopicView from "./pages/TopicView";
 import FlashcardCreator from "./pages/FlashcardCreator";
+import QuizMode from "./pages/QuizMode";
 import UserProfile from "./pages/UserProfile";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -42,6 +43,11 @@ const App = () => (
             <Route path="/topic/:topicId/create" element={
               <ProtectedRoute>
                 <FlashcardCreator />
+              </ProtectedRoute>
+            } />
+            <Route path="/quiz/:topicId" element={
+              <ProtectedRoute>
+                <QuizMode />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
