@@ -117,6 +117,10 @@ const UserProfile = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
+                <h3 className="text-sm font-medium text-gray-500">Full Name</h3>
+                <p className="mt-1">{user.fullName}</p>
+              </div>
+              <div>
                 <h3 className="text-sm font-medium text-gray-500">User ID</h3>
                 <p className="mt-1">{user.id}</p>
               </div>

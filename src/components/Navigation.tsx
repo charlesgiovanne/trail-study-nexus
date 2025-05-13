@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Search } from "lucide-react";
+import { User } from "lucide-react";
 
 const Navigation: React.FC = () => {
   const { user, logout } = useAuth();
@@ -59,7 +59,7 @@ const Navigation: React.FC = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>
-                {user?.id}
+                {user?.fullName || user?.id}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => navigate("/profile")}>

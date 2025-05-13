@@ -28,6 +28,7 @@ const AdminDashboard = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [newUserId, setNewUserId] = useState("");
+  const [newUserFullName, setNewUserFullName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -45,6 +46,11 @@ const AdminDashboard = () => {
       return;
     }
 
+    if (!newUserFullName.trim()) {
+      toast.error("Please enter a full name");
+      return;
+    }
+
     // Check if user ID already exists
     const existingUser = store.getUser(newUserId);
     if (existingUser) {
@@ -53,11 +59,12 @@ const AdminDashboard = () => {
     }
 
     // Create new user
-    store.createUser(newUserId);
+    store.createUser(newUserId, newUserFullName);
     loadUsers();
     setNewUserId("");
+    setNewUserFullName("");
     
-    toast.success(`User ${newUserId} created successfully`);
+    toast.success(`User ${newUserFullName} (${newUserId}) created successfully`);
   };
 
   const handleCopyId = (id: string) => {
@@ -66,7 +73,8 @@ const AdminDashboard = () => {
   };
 
   const filteredUsers = users.filter(user => 
-    user.id.toLowerCase().includes(searchTerm.toLowerCase())
+    user.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -101,6 +109,7 @@ const AdminDashboard = () => {
                     <TableHeader>
                       <TableRow>
                         <TableHead>User ID</TableHead>
+                        <TableHead>Full Name</TableHead>
                         <TableHead>Topics</TableHead>
                         <TableHead>Folders</TableHead>
                         <TableHead>Action</TableHead>
@@ -111,6 +120,7 @@ const AdminDashboard = () => {
                         filteredUsers.map((user) => (
                           <TableRow key={user.id}>
                             <TableCell className="font-medium">{user.id}</TableCell>
+                            <TableCell>{user.fullName}</TableCell>
                             <TableCell>{user.createdTopics.length}</TableCell>
                             <TableCell>{user.folders.length}</TableCell>
                             <TableCell>
@@ -126,7 +136,7 @@ const AdminDashboard = () => {
                         ))
                       ) : (
                         <TableRow>
-                          <TableCell colSpan={4} className="h-24 text-center">
+                          <TableCell colSpan={5} className="h-24 text-center">
                             No users found
                           </TableCell>
                         </TableRow>
@@ -160,6 +170,18 @@ const AdminDashboard = () => {
                   <p className="mt-1 text-xs text-gray-500">
                     User ID will also be the password
                   </p>
+                </div>
+                
+                <div>
+                  <label htmlFor="new-user-full-name" className="block text-sm font-medium text-gray-700 mb-1">
+                    Full Name
+                  </label>
+                  <Input
+                    id="new-user-full-name"
+                    placeholder="e.g., John Doe"
+                    value={newUserFullName}
+                    onChange={(e) => setNewUserFullName(e.target.value)}
+                  />
                 </div>
                 
                 <Button 

@@ -28,8 +28,8 @@ export interface Folder {
 
 export interface User {
   id: string;
+  fullName: string;
   folders: Folder[];
-  sharedTopics: string[]; // Topic IDs
   createdTopics: string[]; // Topic IDs
   isAdmin: boolean;
 }

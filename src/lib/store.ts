@@ -17,8 +17,8 @@ class Store {
     // Add admin user
     this.users.set("2023305700", {
       id: "2023305700",
+      fullName: "Admin User",
       folders: [],
-      sharedTopics: [],
       createdTopics: [],
       isAdmin: true,
     });
@@ -65,11 +65,11 @@ class Store {
   }
 
   // User management
-  createUser(id: string): User {
+  createUser(id: string, fullName: string): User {
     const newUser: User = {
       id,
+      fullName,
       folders: [],
-      sharedTopics: [],
       createdTopics: [],
       isAdmin: false,
     };
@@ -122,12 +122,6 @@ class Store {
       if (topic) topics.push(topic);
     });
     
-    // Get shared topics
-    user.sharedTopics.forEach(topicId => {
-      const topic = this.topics.get(topicId);
-      if (topic) topics.push(topic);
-    });
-    
     return topics;
   }
 
@@ -148,7 +142,6 @@ class Store {
     // Remove topic from users' lists
     this.users.forEach(user => {
       user.createdTopics = user.createdTopics.filter(topicId => topicId !== id);
-      user.sharedTopics = user.sharedTopics.filter(topicId => topicId !== id);
     });
     
     // Remove the topic itself
@@ -265,28 +258,6 @@ class Store {
     
     // Delete the folder
     return this.folders.delete(id);
-  }
-
-  // Sharing management
-  shareTopic(topicId: string, userId: string): boolean {
-    const topic = this.topics.get(topicId);
-    const user = this.users.get(userId);
-    
-    if (!topic || !user) return false;
-    
-    if (!user.sharedTopics.includes(topicId)) {
-      user.sharedTopics.push(topicId);
-    }
-    
-    return true;
-  }
-
-  unshareTopicWithUser(topicId: string, userId: string): boolean {
-    const user = this.users.get(userId);
-    if (!user) return false;
-    
-    user.sharedTopics = user.sharedTopics.filter(id => id !== topicId);
-    return true;
   }
 }
 

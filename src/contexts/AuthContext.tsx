@@ -4,8 +4,8 @@ import { toast } from "sonner";
 
 type User = {
   id: string;
+  fullName: string;
   isAdmin: boolean;
-  sharedTopics: string[];
   createdTopics: string[];
   folders: any[];
 };
@@ -52,8 +52,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const isAdmin = id === "2023305700";
       const user = { 
         id, 
+        fullName: isAdmin ? "Admin User" : "Student User", // Default name if not set
         isAdmin,
-        sharedTopics: [],
         createdTopics: [],
         folders: []
       };
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsAuthenticated(true);
       localStorage.setItem("trailstudy_user", JSON.stringify(user));
       
-      toast.success(`Welcome, ${id}!`);
+      toast.success(`Welcome, ${user.fullName}!`);
       
       return true;
     } else {
