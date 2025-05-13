@@ -81,10 +81,10 @@ const Dashboard = () => {
       
       <div className="container mx-auto px-4 py-6 sm:py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-trailblue-500">My Dashboard</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary">My Dashboard</h1>
           
           <Button 
-            className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500 w-full sm:w-auto"
+            className="bg-secondary hover:bg-secondary/80 text-primary font-medium w-full sm:w-auto"
             onClick={() => setIsOpen(true)}
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -103,10 +103,10 @@ const Dashboard = () => {
         </div>
         
         <Tabs defaultValue="my-topics" className="w-full">
-          <TabsList className="mb-4 w-full grid grid-cols-3">
-            <TabsTrigger value="my-topics">My Topics</TabsTrigger>
-            <TabsTrigger value="shared">Shared</TabsTrigger>
-            <TabsTrigger value="public">Public</TabsTrigger>
+          <TabsList className="mb-4 w-full grid grid-cols-3 bg-muted">
+            <TabsTrigger value="my-topics" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">My Topics</TabsTrigger>
+            <TabsTrigger value="shared" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">Shared</TabsTrigger>
+            <TabsTrigger value="public" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">Public</TabsTrigger>
           </TabsList>
           
           <TabsContent value="my-topics" className="space-y-4">

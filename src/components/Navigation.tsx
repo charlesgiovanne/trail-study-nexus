@@ -27,7 +27,7 @@ const Navigation: React.FC = () => {
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/dashboard" className="flex items-center">
           <h1 className="text-2xl font-bold">
-            Trail<span className="text-secondary">Study</span>
+            Trail<span className="text-secondary font-bold">Study</span>
           </h1>
         </Link>
 
@@ -35,7 +35,7 @@ const Navigation: React.FC = () => {
           {user?.isAdmin && (
             <Button
               variant="ghost"
-              className="text-primary-foreground hover:text-secondary"
+              className="text-primary-foreground hover:bg-primary/80 hover:text-secondary"
               onClick={() => navigate("/admin")}
             >
               Admin Dashboard
@@ -44,7 +44,7 @@ const Navigation: React.FC = () => {
           
           <Button
             variant="ghost"
-            className="text-primary-foreground hover:text-secondary"
+            className="text-primary-foreground hover:bg-primary/80 hover:text-secondary"
             onClick={() => navigate("/dashboard")}
           >
             Dashboard

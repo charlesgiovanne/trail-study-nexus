@@ -60,15 +60,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-trailblue-600 to-trailblue-900 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary to-primary/70 p-4">
       <div className="mb-8 text-center">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
-          Trail<span className="text-trailyellow">Study</span>
+          Trail<span className="text-secondary">Study</span>
         </h1>
         <p className="text-xl text-white/80">Create, learn, and share flashcards with ease</p>
       </div>
 
-      <Card className="w-full max-w-md shadow-xl border-trailyellow/20">
+      <Card className="w-full max-w-md shadow-xl border-secondary/20">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>
           <CardDescription className="text-center">
@@ -106,7 +106,7 @@ const Index = () => {
               />
               <Button 
                 type="submit" 
-                className="w-full bg-trailyellow text-trailblue-600 hover:bg-trailyellow-600"
+                className="w-full bg-secondary text-primary hover:bg-secondary/80 font-medium"
                 disabled={isLoading}
               >
                 {isLoading ? "Logging in..." : "Log In"}
