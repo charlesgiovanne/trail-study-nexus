@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { 
@@ -10,38 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { ChevronLeft, ChevronRight, Plus, Share, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Play } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { store } from "@/lib/store";
 import { Topic, Flashcard } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-
-const shareFormSchema = z.object({
-  userId: z.string().min(10, {
-    message: "User ID must be at least 10 characters.",
-  }),
-});
 
 const TopicView = () => {
   const { topicId } = useParams<{ topicId: string }>();
@@ -49,15 +23,7 @@ const TopicView = () => {
   const [topic, setTopic] = useState<Topic | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const navigate = useNavigate();
-
-  const shareForm = useForm<z.infer<typeof shareFormSchema>>({
-    resolver: zodResolver(shareFormSchema),
-    defaultValues: {
-      userId: "",
-    },
-  });
 
   useEffect(() => {
     if (topicId) {
@@ -70,25 +36,6 @@ const TopicView = () => {
       }
     }
   }, [topicId, navigate]);
-
-  const handleShare = (values: z.infer<typeof shareFormSchema>) => {
-    if (!topic) return;
-    
-    const targetUser = store.getUser(values.userId);
-    if (!targetUser) {
-      toast.error("User not found");
-      return;
-    }
-    
-    const success = store.shareTopic(topic.id, values.userId);
-    if (success) {
-      toast.success(`Topic shared with user ${values.userId}`);
-      setIsShareDialogOpen(false);
-      shareForm.reset();
-    } else {
-      toast.error("Failed to share topic");
-    }
-  };
 
   const handleNext = () => {
     if (!topic?.flashcards.length) return;
@@ -139,54 +86,13 @@ const TopicView = () => {
           
           <div className="flex space-x-2">
             {isCreator && (
-              <>
-                <Dialog open={isShareDialogOpen} onOpenChange={setIsShareDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button variant="outline">
-                      <Share className="h-4 w-4 mr-2" />
-                      Share
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Share Topic</DialogTitle>
-                      <DialogDescription>
-                        Enter the user ID to share this topic with.
-                      </DialogDescription>
-                    </DialogHeader>
-                    
-                    <Form {...shareForm}>
-                      <form onSubmit={shareForm.handleSubmit(handleShare)} className="space-y-4">
-                        <FormField
-                          control={shareForm.control}
-                          name="userId"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>User ID</FormLabel>
-                              <FormControl>
-                                <Input placeholder="2023xxxxxx" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        
-                        <DialogFooter>
-                          <Button type="submit">Share</Button>
-                        </DialogFooter>
-                      </form>
-                    </Form>
-                  </DialogContent>
-                </Dialog>
-                
-                <Button 
-                  onClick={() => navigate(`/topic/${topic.id}/create`)}
-                  className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Cards
-                </Button>
-              </>
+              <Button 
+                onClick={() => navigate(`/topic/${topic.id}/create`)}
+                className="bg-trailyellow hover:bg-trailyellow-600 text-trailblue-500"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Cards
+              </Button>
             )}
             
             {topic.flashcards.length > 0 && (

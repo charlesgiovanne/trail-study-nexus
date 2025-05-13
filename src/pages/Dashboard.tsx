@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Folder, Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 import { store } from "@/lib/store";
 import { Topic } from "@/types";
@@ -47,15 +47,10 @@ const Dashboard = () => {
     (topic) => topic.createdBy === user?.id
   );
   
-  const sharedTopics = filteredTopics.filter(
-    (topic) => user?.sharedTopics?.includes(topic.id)
-  );
-  
   const publicTopics = filteredTopics.filter(
     (topic) => 
       topic.isPublic && 
-      topic.createdBy !== user?.id && 
-      !(user?.sharedTopics?.includes(topic.id))
+      topic.createdBy !== user?.id
   );
 
   const onSubmit = (values: { title: string; description: string; isPublic: boolean }) => {
@@ -103,9 +98,8 @@ const Dashboard = () => {
         </div>
         
         <Tabs defaultValue="my-topics" className="w-full">
-          <TabsList className="mb-4 w-full grid grid-cols-3 bg-muted">
+          <TabsList className="mb-4 w-full grid grid-cols-2 bg-muted">
             <TabsTrigger value="my-topics" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">My Topics</TabsTrigger>
-            <TabsTrigger value="shared" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">Shared</TabsTrigger>
             <TabsTrigger value="public" className="data-[state=active]:bg-secondary data-[state=active]:text-primary data-[state=active]:font-medium">Public</TabsTrigger>
           </TabsList>
           
@@ -117,15 +111,6 @@ const Dashboard = () => {
               showAddButton={true}
               onCreateClick={() => setIsOpen(true)}
               showCreateButton={true}
-            />
-          </TabsContent>
-          
-          <TabsContent value="shared" className="space-y-4">
-            <TopicGrid
-              topics={sharedTopics}
-              emptyTitle="No shared topics"
-              emptyDescription="Topics shared with you will appear here."
-              creatorInfo={true}
             />
           </TabsContent>
           
